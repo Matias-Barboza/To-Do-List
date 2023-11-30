@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="TasksList" type="ScrollContainer"]
+margin_left = 2.0
+margin_top = 84.0
+margin_right = 600.0
+margin_bottom = 484.0
+
+[node name="LineTaskContainer" type="VBoxContainer" parent="."]
+margin_right = 598.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
