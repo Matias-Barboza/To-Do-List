@@ -11,6 +11,7 @@ config_version=4
 [application]
 
 config/name="To Do List"
+run/main_scene="res://Screens/ScreenFirstSesion.tscn"
 config/icon="res://icon.png"
 
 [autoload]
