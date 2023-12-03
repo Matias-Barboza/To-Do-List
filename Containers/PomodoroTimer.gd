@@ -106,8 +106,6 @@ func _on_OptionButton_item_selected(index: int) -> void:
 		
 		last_index = index - 1
 		
-		print(last_index)
-		
 		set_pomodoro_time(study_interval[last_index])
 
 
@@ -132,7 +130,6 @@ func _on_ReplayButton_pressed() -> void:
 		pomodoro_timer.start()
 		controller_timer.start()
 
-		print(pomodoro_timer.time_left)
 
 func _on_StopButton_pressed() -> void:
 	
