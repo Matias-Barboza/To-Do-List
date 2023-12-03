@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Resources/Icons/delete_task.png" type="Texture" id=1]
 [ext_resource path="res://Resources/Icons/done_task.png" type="Texture" id=2]
 [ext_resource path="res://Resources/Styles/RegularTextFont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Resources/Icons/edit_task.png" type="Texture" id=4]
+[ext_resource path="res://Containers/TaskLine.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxFlat" id=7]
 content_margin_left = 6.0
@@ -139,22 +140,23 @@ corner_radius_bottom_left = 1
 
 [node name="TaskLine" type="HBoxContainer"]
 anchor_right = 1.0
-margin_right = -70.0
-margin_bottom = 38.0
+margin_right = -72.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
+script = ExtResource( 5 )
 
 [node name="LineEdit" type="LineEdit" parent="."]
-margin_right = 1090.0
+margin_right = 1088.0
 margin_bottom = 40.0
-rect_min_size = Vector2( 190, 0 )
+rect_min_size = Vector2( 1088, 0 )
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 3 )
 custom_styles/normal = SubResource( 7 )
 
 [node name="EditButton" type="Button" parent="."]
-margin_left = 1094.0
-margin_right = 1130.0
+margin_left = 1092.0
+margin_right = 1128.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 36, 0 )
 custom_styles/hover = SubResource( 9 )
@@ -164,8 +166,8 @@ icon = ExtResource( 4 )
 icon_align = 1
 
 [node name="DoneTask" type="Button" parent="."]
-margin_left = 1134.0
-margin_right = 1170.0
+margin_left = 1132.0
+margin_right = 1168.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 36, 0 )
 custom_styles/hover = SubResource( 1 )
@@ -176,8 +178,8 @@ icon = ExtResource( 2 )
 icon_align = 1
 
 [node name="DeleteTask" type="Button" parent="."]
-margin_left = 1174.0
-margin_right = 1210.0
+margin_left = 1172.0
+margin_right = 1208.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 36, 0 )
 custom_styles/hover = SubResource( 5 )
@@ -185,3 +187,5 @@ custom_styles/pressed = SubResource( 8 )
 custom_styles/normal = SubResource( 6 )
 icon = ExtResource( 1 )
 icon_align = 1
+
+[connection signal="pressed" from="DeleteTask" to="." method="_on_DeleteTask_pressed"]

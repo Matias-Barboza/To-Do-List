@@ -38,6 +38,7 @@ principal_screen = ExtResource( 8 )
 [node name="ColorRect" type="ColorRect" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 color = Color( 0.380392, 0.439216, 0.529412, 1 )
 
 [node name="TopBar" type="Node" parent="."]

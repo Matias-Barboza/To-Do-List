@@ -26,7 +26,7 @@ func _ready() -> void:
 	
 	panels = [tasks_lists_panel, pomodoro_container_panel]
 	
-	change_to_panel(morning_panel, [morning_panel, afternoon_panel])
+	#change_to_panel(morning_panel, [morning_panel, afternoon_panel])
 
 
 func _on_DropDownMenu_pressed() -> void:
@@ -99,12 +99,13 @@ func _on_ToggleButton_pressed() -> void:
 	if not left:
 		animations_toggle_button.play("toggle_left")
 		panel = morning_panel
+		animations.play_backwards("change_tasks_list")
 	else:
 		animations_toggle_button.play("toggle_right")
 		panel = afternoon_panel
+		animations.play("change_tasks_list")
 	
-	print(panel.name)
+	#change_to_panel(panel, [morning_panel, afternoon_panel])
 	
-	change_to_panel(panel, [morning_panel, afternoon_panel])
 	
 	left = !left

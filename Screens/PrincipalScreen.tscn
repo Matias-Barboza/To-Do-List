@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Resources/Styles/styleBoxLineBlack.tres" type="StyleBox" id=1]
 [ext_resource path="res://Resources/Styles/TitleFont.tres" type="DynamicFont" id=2]
@@ -28,6 +28,58 @@
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0, 0, 0, 0.509804 )
 
+[sub_resource type="Animation" id=9]
+resource_name = "change_tasks_list"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("TasksLists/TasksListContainerPanel/MorningTasks:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.3, 0.3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TasksLists/TasksListContainerPanel/AfternoonTasks:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.3, 0.3 ), Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TasksLists/TasksListContainerPanel/MorningTasks:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 35, 181 ), Vector2( 1510, 181 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TasksLists/TasksListContainerPanel/AfternoonTasks:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1510, 181 ), Vector2( 35, 181 ) ]
+}
+
 [sub_resource type="Animation" id=6]
 resource_name = "deploy"
 length = 0.5
@@ -49,7 +101,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 4 )
 
-[node name="Background" type="Node" parent="."]
+[node name="Background" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="ColorRect" type="ColorRect" parent="Background"]
 anchor_right = 1.0
@@ -92,7 +146,9 @@ custom_styles/normal = ExtResource( 17 )
 icon = ExtResource( 3 )
 icon_align = 1
 
-[node name="TasksLists" type="Node" parent="."]
+[node name="TasksLists" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="TasksListContainerPanel" type="Panel" parent="TasksLists"]
 anchor_right = 1.0
@@ -109,10 +165,15 @@ margin_right = 24.0
 margin_bottom = 154.0
 
 [node name="MorningTasks" parent="TasksLists/TasksListContainerPanel" instance=ExtResource( 12 )]
-margin_left = -605.0
-margin_top = -179.0
-margin_right = 605.0
-margin_bottom = 321.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 35.0
+margin_top = 181.0
+margin_right = -35.0083
+margin_bottom = -39.0
+rect_pivot_offset = Vector2( 605, 250 )
 
 [node name="Title" parent="TasksLists/TasksListContainerPanel/MorningTasks" index="0"]
 margin_left = -105.5
@@ -146,10 +207,16 @@ custom_styles/normal = ExtResource( 17 )
 icon = ExtResource( 13 )
 
 [node name="AfternoonTasks" parent="TasksLists/TasksListContainerPanel" instance=ExtResource( 12 )]
-margin_left = -605.0
-margin_top = -179.0
-margin_right = 605.0
-margin_bottom = 321.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1510.0
+margin_top = 181.0
+margin_right = -1580.0
+margin_bottom = -39.0
+rect_scale = Vector2( 0.3, 0.3 )
+rect_pivot_offset = Vector2( 605, 250 )
 
 [node name="Title" parent="TasksLists/TasksListContainerPanel/AfternoonTasks" index="0"]
 margin_left = -75.5
@@ -163,6 +230,11 @@ margin_top = -14.5
 margin_bottom = -10.5
 
 [node name="AfternoonTasksList" parent="TasksLists/TasksListContainerPanel/AfternoonTasks" instance=ExtResource( 14 )]
+margin_left = 0.0
+margin_right = 1210.0
+
+[node name="LineTaskContainer" parent="TasksLists/TasksListContainerPanel/AfternoonTasks/AfternoonTasksList" index="0"]
+margin_right = 1210.0
 
 [node name="AddAfternoonTaskButton" type="Button" parent="TasksLists/TasksListContainerPanel/AfternoonTasks"]
 anchor_left = 1.0
@@ -239,6 +311,7 @@ icon = ExtResource( 11 )
 align = 0
 
 [node name="Animations" type="AnimationPlayer" parent="."]
+anims/change_tasks_list = SubResource( 9 )
 anims/deploy = SubResource( 6 )
 
 [connection signal="pressed" from="TopBar/DropDownMenu" to="." method="_on_DropDownMenu_pressed"]
