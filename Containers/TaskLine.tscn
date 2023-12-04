@@ -140,23 +140,23 @@ corner_radius_bottom_left = 1
 
 [node name="TaskLine" type="HBoxContainer"]
 anchor_right = 1.0
-margin_right = -72.0
+margin_right = -369.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 script = ExtResource( 5 )
 
 [node name="LineEdit" type="LineEdit" parent="."]
-margin_right = 1088.0
+margin_right = 791.0
 margin_bottom = 40.0
-rect_min_size = Vector2( 1088, 0 )
+rect_min_size = Vector2( 700, 0 )
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 3 )
 custom_styles/normal = SubResource( 7 )
 
 [node name="EditButton" type="Button" parent="."]
-margin_left = 1092.0
-margin_right = 1128.0
+margin_left = 795.0
+margin_right = 831.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 36, 0 )
 custom_styles/hover = SubResource( 9 )
@@ -166,8 +166,8 @@ icon = ExtResource( 4 )
 icon_align = 1
 
 [node name="DoneTask" type="Button" parent="."]
-margin_left = 1132.0
-margin_right = 1168.0
+margin_left = 835.0
+margin_right = 871.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 36, 0 )
 custom_styles/hover = SubResource( 1 )
@@ -178,8 +178,8 @@ icon = ExtResource( 2 )
 icon_align = 1
 
 [node name="DeleteTask" type="Button" parent="."]
-margin_left = 1172.0
-margin_right = 1208.0
+margin_left = 875.0
+margin_right = 911.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 36, 0 )
 custom_styles/hover = SubResource( 5 )

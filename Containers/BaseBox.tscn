@@ -29,9 +29,9 @@ custom_fonts/font = ExtResource( 2 )
 text = "TÍTULO"
 
 [node name="HSeparator" type="HSeparator" parent="."]
-anchor_top = 0.187
+anchor_top = 0.189
 anchor_right = 1.0
-anchor_bottom = 0.187
-margin_top = -0.0600052
-margin_bottom = 3.93999
+anchor_bottom = 0.189
+margin_top = -1.82001
+margin_bottom = 2.17999
 custom_styles/separator = SubResource( 1 )

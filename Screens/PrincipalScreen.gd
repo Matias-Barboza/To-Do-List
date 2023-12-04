@@ -3,19 +3,22 @@ extends Control
 
 var format_greeting = "¡Hola, %s!"
 var deploy : bool = false
-var path_task_line : String = "res://Containers/TaskLine.tscn"
 var panels : Array
-var left : bool = true
+var tasks_lists : Array
+var days_buttons : Array
 
 
-onready var greeting_label : Label = $TopBar/Title
-onready var tasks_lists_panel : Panel = $TasksLists/TasksListContainerPanel
+onready var greeting_label : Label = $TopBar/Greeting
+onready var title_label : Label = $TopBar/Title
+onready var tasks_lists_panel : Control = $TasksLists
 onready var pomodoro_container_panel : Panel = $Pomodoro/TimerContainer
-onready var morning_panel : Panel = $TasksLists/TasksListContainerPanel/MorningTasks
-onready var afternoon_panel : Panel = $TasksLists/TasksListContainerPanel/AfternoonTasks
-onready var morning_tasks_list : VBoxContainer = $TasksLists/TasksListContainerPanel/MorningTasks/MorningTasksList/LineTaskContainer
-onready var afternoon_tasks_list : VBoxContainer = $TasksLists/TasksListContainerPanel/AfternoonTasks/AfternoonTasksList/LineTaskContainer
-onready var animations_toggle_button : AnimationPlayer = $TasksLists/TasksListContainerPanel/ToggleButton/AnimationPlayer
+onready var mo_tasks_list = $TasksLists/MoTasksListContainerPanel
+onready var tu_tasks_list = $TasksLists/TuTasksListContainerPanel
+onready var we_tasks_list = $TasksLists/WeTasksListContainerPanel
+onready var th_tasks_list = $TasksLists/ThTasksListContainerPanel
+onready var fr_tasks_list = $TasksLists/FrTasksListContainerPanel
+onready var sa_tasks_list = $TasksLists/SaTasksListContainerPanel
+onready var su_tasks_list = $TasksLists/SuTasksListContainerPanel
 onready var animations : AnimationPlayer = $Animations
 
 
@@ -26,12 +29,26 @@ func _ready() -> void:
 	
 	panels = [tasks_lists_panel, pomodoro_container_panel]
 	
-	#change_to_panel(morning_panel, [morning_panel, afternoon_panel])
-
-
-func _on_DropDownMenu_pressed() -> void:
+	tasks_lists = [mo_tasks_list, tu_tasks_list, we_tasks_list,
+				   th_tasks_list, fr_tasks_list, sa_tasks_list, su_tasks_list]
 	
-	displacement_drop_down_menu()
+	connect_day_buttons_to_signal_pressed()
+
+
+func connect_day_buttons_to_signal_pressed() -> void:
+	
+	days_buttons = [$DropDownMenu/MenuContainerPanel/VBoxContainer/Monday,
+					$DropDownMenu/MenuContainerPanel/VBoxContainer/Tuesday,
+					$DropDownMenu/MenuContainerPanel/VBoxContainer/Wednesday,
+					$DropDownMenu/MenuContainerPanel/VBoxContainer/Thursday,
+					$DropDownMenu/MenuContainerPanel/VBoxContainer/Friday,
+					$DropDownMenu/MenuContainerPanel/VBoxContainer/Saturday,
+					$DropDownMenu/MenuContainerPanel/VBoxContainer/Sunday]
+	
+	
+	for day_button in days_buttons:
+		
+		day_button.connect("pressed", self, "_on_Day_Button_pressed", [day_button])
 
 
 func displacement_drop_down_menu() -> void:
@@ -46,38 +63,40 @@ func displacement_drop_down_menu() -> void:
 		animations.play_backwards("deploy")
 
 
-func _on_AddMorningTaskButton_pressed() -> void:
+func change_to_panel(control : Control, controls : Array) -> void:
 	
-	add_task(path_task_line, morning_tasks_list)
-
-
-func _on_AddAfternoonTaskButton_pressed() -> void:
-	
-	add_task(path_task_line, afternoon_tasks_list)
-
-
-func add_task(path_task_line : String ,tasks_list : VBoxContainer) -> void:
-	
-	var task_line = load(path_task_line)
-	var new_task = task_line.instance()
-	
-	tasks_list.add_child(new_task)
-
-
-func change_to_panel(panel : Panel, panels : Array) -> void:
-	
-	for p in panels:
-		if panel == p:
-			p.visible = true
+	for c in controls:
+		if control == c:
+			c.visible = true
 		else:
-			p.visible = false
+			c.visible = false
+
+
+func change_days_buttons_visibility(visibility = false) -> void:
+	
+	for day_button in days_buttons:
+		
+		day_button.visible = visibility
+
+
+func change_title(title : String) -> void:
+	
+	if greeting_label.visible:
+		
+		greeting_label.visible = false
+		title_label.visible = true
+	
+	title_label.text = title
+
+
+func _on_DropDownMenu_pressed() -> void:
+	
+	displacement_drop_down_menu()
 
 
 func _on_TasksList_pressed() -> void:
 	
-	displacement_drop_down_menu()
-	
-	change_to_panel(tasks_lists_panel, panels)
+	change_days_buttons_visibility(true)
 
 
 func _on_Reminders_pressed() -> void:
@@ -90,22 +109,52 @@ func _on_Timers_pressed() -> void:
 	displacement_drop_down_menu()
 	
 	change_to_panel(pomodoro_container_panel, panels)
+	
+	change_title("Timer Pomodoro")
 
 
-func _on_ToggleButton_pressed() -> void:
+func _on_Animations_animation_finished(anim_name: String) -> void:
+	
+	change_days_buttons_visibility()
+
+
+func _on_Day_Button_pressed(button) -> void:
+	
+	displacement_drop_down_menu()
+	
+	change_to_panel(tasks_lists_panel, panels)
 	
 	var panel : Panel
+	var title
+	var days_in_spanish : Dictionary = {
+		"Monday" : "Lunes",
+		"Tuesday" : "Martes",
+		"Wednesday" : "Miércoles",
+		"Thursday" : "Jueves",
+		"Friday" : "Viernes",
+		"Saturday" : "Sábado",
+		"Sunday" : "Domingo"
+	}
 	
-	if not left:
-		animations_toggle_button.play("toggle_left")
-		panel = morning_panel
-		animations.play_backwards("change_tasks_list")
-	else:
-		animations_toggle_button.play("toggle_right")
-		panel = afternoon_panel
-		animations.play("change_tasks_list")
+	match button.get_name():
+		"Monday":
+			panel = $TasksLists/MoTasksListContainerPanel
+		"Tuesday":
+			panel = $TasksLists/TuTasksListContainerPanel
+		"Wednesday":
+			panel = $TasksLists/WeTasksListContainerPanel
+		"Thursday":
+			panel = $TasksLists/ThTasksListContainerPanel
+		"Friday":
+			panel = $TasksLists/FrTasksListContainerPanel
+		"Saturday":
+			panel = $TasksLists/SaTasksListContainerPanel
+		"Sunday":
+			panel = $TasksLists/SuTasksListContainerPanel
+		_:
+			panel = null
 	
-	#change_to_panel(panel, [morning_panel, afternoon_panel])
+	title = "Lista de tareas del día %s" %days_in_spanish[button.get_name()]
 	
-	
-	left = !left
+	change_to_panel(panel, tasks_lists)
+	change_title(title)

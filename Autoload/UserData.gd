@@ -7,19 +7,19 @@ var user_name : String = "" setget set_user_name, get_user_name
 
 # Methods
 func _ready() -> void:
-	
+
 	file = File.new()
-	
+
 	if file.file_exists(path_to_save_data):
-		
+
 		file.open(path_to_save_data, File.READ)
-		
+
 		var text = file.get_as_text()
-		
+
 		var data = parse_json(text)
-		
+
 		user_name = data.name
-		
+
 		get_tree().change_scene("res://Screens/PrincipalScreen.tscn")
 
 

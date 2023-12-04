@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Resources/Fonts/Montserrat-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Containers/PomodoroTimer.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Resources/Icons/replay.png" type="Texture" id=5]
 [ext_resource path="res://Resources/Icons/play.png" type="Texture" id=6]
 [ext_resource path="res://Resources/Fonts/Montserrat-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Resources/SFX/bell-ringing.wav" type="AudioStream" id=8]
 
 [sub_resource type="StyleBoxFlat" id=22]
 bg_color = Color( 0.172549, 0.172549, 0.172549, 1 )
@@ -634,7 +635,6 @@ margin_bottom = 196.0
 custom_styles/fg = SubResource( 36 )
 custom_styles/bg = SubResource( 37 )
 step = 1.0
-value = 50.0
 percent_visible = false
 
 [node name="PomodoroTimer" type="Timer" parent="."]
@@ -658,6 +658,11 @@ anims/ss_anim = SubResource( 9 )
 autoplay = "study_interval_colors"
 anims/rest_interval_colors = SubResource( 38 )
 anims/study_interval_colors = SubResource( 39 )
+
+[node name="AlarmSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = 10.0
+bus = "SFX"
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="ReplayButton" to="." method="_on_ReplayButton_pressed"]

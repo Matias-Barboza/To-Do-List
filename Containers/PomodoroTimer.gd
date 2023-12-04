@@ -41,7 +41,7 @@ func set_initial_values():
 	
 	should_rest = true
 	last_index = -1
-	study_interval = [10,1800,2400]
+	study_interval = [15,1800,2400]
 	rest_interval = [10,300,500]
 
 
@@ -120,6 +120,7 @@ func set_progress_bar_values(max_val : int, rest_interval = false) -> void:
 
 func _on_PomodoroTimer_timeout() -> void:
 	
+	$AlarmSFX.play()
 	controller_timer.stop()
 	
 	if should_rest:
