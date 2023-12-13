@@ -6,6 +6,15 @@ var deploy : bool = false
 var panels : Array
 var tasks_lists : Array
 var days_buttons : Array
+var days_in_spanish : Array = [
+		"Lunes",
+		"Martes",
+		"Miércoles",
+		"Jueves",
+		"Viernes",
+		"Sábado",
+		"Domingo"
+	]
 
 
 onready var greeting_label : Label = $TopBar/Greeting
@@ -33,6 +42,8 @@ func _ready() -> void:
 				   th_tasks_list, fr_tasks_list, sa_tasks_list, su_tasks_list]
 	
 	connect_day_buttons_to_signal_pressed()
+	
+	config_date_in_day_buttons()
 
 
 func connect_day_buttons_to_signal_pressed() -> void:
@@ -49,6 +60,19 @@ func connect_day_buttons_to_signal_pressed() -> void:
 	for day_button in days_buttons:
 		
 		day_button.connect("pressed", self, "_on_Day_Button_pressed", [day_button])
+
+
+func config_date_in_day_buttons() -> void:
+	
+	var i : int = 0
+	var date_dict : Dictionary = Time.get_date_dict_from_system()
+	var day : int = date_dict["day"]
+	var month : int = date_dict["month"]
+	
+	for day_button in days_buttons:
+		
+		day_button.text = days_in_spanish[i] + " - " + "%s / %s" %[(day + i),month]  
+		i += 1
 
 
 func displacement_drop_down_menu() -> void:
@@ -125,36 +149,36 @@ func _on_Day_Button_pressed(button) -> void:
 	change_to_panel(tasks_lists_panel, panels)
 	
 	var panel : Panel
-	var title
-	var days_in_spanish : Dictionary = {
-		"Monday" : "Lunes",
-		"Tuesday" : "Martes",
-		"Wednesday" : "Miércoles",
-		"Thursday" : "Jueves",
-		"Friday" : "Viernes",
-		"Saturday" : "Sábado",
-		"Sunday" : "Domingo"
-	}
+	var title : String 
+	var day : int = -1
 	
 	match button.get_name():
 		"Monday":
 			panel = $TasksLists/MoTasksListContainerPanel
+			day = 0
 		"Tuesday":
 			panel = $TasksLists/TuTasksListContainerPanel
+			day = 1
 		"Wednesday":
 			panel = $TasksLists/WeTasksListContainerPanel
+			day = 2
 		"Thursday":
 			panel = $TasksLists/ThTasksListContainerPanel
+			day = 3
 		"Friday":
 			panel = $TasksLists/FrTasksListContainerPanel
+			day = 4
 		"Saturday":
 			panel = $TasksLists/SaTasksListContainerPanel
+			day = 5
 		"Sunday":
 			panel = $TasksLists/SuTasksListContainerPanel
+			day = 6
 		_:
 			panel = null
+			day = -1
 	
-	title = "Lista de tareas del día %s" %days_in_spanish[button.get_name()]
+	title = "Lista de tareas del día %s" %days_in_spanish[day]
 	
 	change_to_panel(panel, tasks_lists)
 	change_title(title)

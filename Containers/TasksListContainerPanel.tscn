@@ -39,7 +39,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 176, 200 ), Vector2( 2000, 200 ) ]
+"values": [ Vector2( 176, 200 ), Vector2( -1648, 200 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("AfternoonTasksContainer:rect_scale")
@@ -63,7 +63,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -1648, 200 ), Vector2( 176, 200 ) ]
+"values": [ Vector2( 2000, 200 ), Vector2( 176, 200 ) ]
 }
 
 [node name="TasksListContainerPanel" type="Panel"]
@@ -96,9 +96,9 @@ margin_bottom = 71.0
 text = "Mañana"
 
 [node name="AfternoonTasksContainer" parent="." instance=ExtResource( 1 )]
-margin_left = -1648.0
+margin_left = 2000.0
 margin_top = 200.0
-margin_right = -2016.0
+margin_right = 1632.0
 margin_bottom = -80.0
 rect_scale = Vector2( 0.5, 0.5 )
 
